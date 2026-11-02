@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "MINDY Backend",
+      "request": "launch",
+      "mainClass": "com.example.mindy.MindyApplication",
+      "projectName": "mindy",
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "type": "chrome",
+      "name": "MINDY Frontend",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend/src"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "MINDY (Backend + Frontend)",
+      "configurations": ["MINDY Backend", "MINDY Frontend"]
+    }
+  ]
+}
