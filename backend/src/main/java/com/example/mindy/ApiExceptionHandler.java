@@ -22,10 +22,14 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException exception) {
-        String message = exception.getBindingResult().getFieldErrors().stream()
-                .findFirst()
-                .map(FieldError::getDefaultMessage)
-                .orElse("validation error");
+        String message = "validation error";
+        for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
+            String defaultMessage = fieldError.getDefaultMessage();
+            if (defaultMessage != null && !defaultMessage.isBlank()) {
+                message = defaultMessage;
+                break;
+            }
+        }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", message));
     }
 
